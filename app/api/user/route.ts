@@ -1,14 +1,14 @@
-import connectMongo from "@/dbConnect";
-import User from "@/User";
+import { getRedisClient } from "@/redisConnect";
+import { IUser } from "@/User";
+import { createUser, getUserData } from "@/utils/helper/user";
 import { HttpStatusCode } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    await connectMongo();
     const body: any = await req.json();
     if (body.name) {
-      const product = await User.create(body);
+      const product = await createUser(body);
       return NextResponse.json(
         { product, message: "Your product has been created" },
         { status: HttpStatusCode.Created }
@@ -26,9 +26,15 @@ export async function POST(req: NextRequest) {
   }
 }
 export async function GET() {
+  let user: IUser[];
   try {
-    await connectMongo();
-    const user = await User.find();
+    const redisClient = getRedisClient();
+    const cachedUser = await redisClient.get("users");
+    if (cachedUser) {
+      return NextResponse.json({ data: JSON.parse(cachedUser) });
+    }
+    user = await getUserData();
+    await redisClient.set("users", JSON.stringify(user), "EX", 5);
     return NextResponse.json({ data: user });
   } catch (error) {
     return NextResponse.json({ error });
