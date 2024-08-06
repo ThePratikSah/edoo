@@ -35,3 +35,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# docker volume data
+db_data
+redis_data
+
+# rest client
+*.rest
