@@ -1,4 +1,11 @@
 import { getUserData } from "@/utils/helper/user";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+  UserButton,
+} from "@clerk/nextjs";
 import Image from "next/image";
 
 export default async function Home() {
@@ -6,6 +13,13 @@ export default async function Home() {
 
   return (
     <>
+      <SignedIn>
+        <UserButton showName />
+        <SignOutButton />
+      </SignedIn>
+      <SignedOut>
+        <SignInButton />
+      </SignedOut>
       {users.map((user) => (
         <div key={user.id}>
           <div>
