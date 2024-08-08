@@ -8,6 +8,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import Image from "next/image";
+import { DropzoneButton } from "../../components/Dropzone/Dropzone";
 
 export default async function Home() {
   const users = await getUserData();
@@ -24,6 +25,7 @@ export default async function Home() {
       <form action={sendEmail}>
         <button>Send Email</button>
       </form>
+      <DropzoneButton />
       {users.map((user) => (
         <div key={user.id}>
           <div>
