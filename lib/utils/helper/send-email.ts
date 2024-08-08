@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import WelcomeEmail from "../../../emails";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -8,7 +9,7 @@ export async function sendEmail() {
     from: "Pratik <hi@pratik.dev>",
     to: ["shivam3448@gmail.com"],
     subject: "Hello world",
-    html: '<Html><Text>Some title</Text><Hr /><Button href="https://example.com">Click me</Button></Html>',
+    react: WelcomeEmail({ userFirstname: "Pratik" }),
   });
 
   if (error) {
