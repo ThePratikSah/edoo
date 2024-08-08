@@ -1,3 +1,4 @@
+import { sendEmail } from "@/utils/helper/send-email";
 import { getUserData } from "@/utils/helper/user";
 import {
   SignedIn,
@@ -20,6 +21,9 @@ export default async function Home() {
       <SignedOut>
         <SignInButton />
       </SignedOut>
+      <form action={sendEmail}>
+        <button>Send Email</button>
+      </form>
       {users.map((user) => (
         <div key={user.id}>
           <div>
