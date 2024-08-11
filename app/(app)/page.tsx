@@ -1,14 +1,8 @@
 import { sendEmail } from "@/utils/helper/send-email";
 import { getUserData } from "@/utils/helper/user";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignOutButton,
-  UserButton,
-} from "@clerk/nextjs";
 import Image from "next/image";
-import { DropzoneButton } from "../../components/Dropzone/Dropzone";
+import { Navbar } from "../../components/Navbar/Navbar";
+import { SignedIn } from "@clerk/nextjs";
 
 export default async function Home() {
   const users = await getUserData();
@@ -16,16 +10,11 @@ export default async function Home() {
   return (
     <>
       <SignedIn>
-        <UserButton showName />
-        <SignOutButton />
+        <form action={sendEmail}>
+          <button>Send Email</button>
+        </form>
       </SignedIn>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <form action={sendEmail}>
-        <button>Send Email</button>
-      </form>
-      <DropzoneButton />
+      {/* <DropzoneButton /> */}
       {users.map((user) => (
         <div key={user.id}>
           <div>

@@ -17,7 +17,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <head>
-          <ColorSchemeScript />
+          <ColorSchemeScript forceColorScheme="light" />
         </head>
         <body>
           <MantineProvider>{children}</MantineProvider>
